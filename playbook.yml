@@ -1,0 +1,20 @@
+---
+- name: to configure docker on slave node
+  hosts: all
+  become: true
+  connection: ssh
+  tasks:
+  - name: to update apt
+    command: sudo apt-get update
+
+  - name: to install docker
+    command: sudo apt-get install -y docker.io
+    become: yes
+    become_user: root
+
+  - name: to start docker service
+    command: sudo systemctl start docker
+    become: yes
+    become_user: root
+  - name: to deploy docker image 
+    command: docker run -itd -p 8081:8081 sarthakwaghpatil/medicure:1.0
