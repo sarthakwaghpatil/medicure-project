@@ -27,8 +27,8 @@ node{
     }
     stage('compile and package'){
         echo "cleaning compiling testing and packaging"
-        sh 'mvn clean package'
-        //sh "sudo ${mavenCMD} clean package"
+        //sh 'mvn clean package'
+        sh "sudo ${mavenCMD} clean package"
     }
     stage('publish html reports'){
         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/finance-project/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
@@ -40,7 +40,7 @@ node{
     stage('pushing image to dockerhub'){
         echo "pushing the image to dockerhub"
         withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerhubpassword')]) {
-        sh "sudo ${dockerCMD} login -u sarthakwaghpatil -p ${dockerhubpassword}"
+        sh "sudo ${dockerCMD} login
         sh "sudo ${dockerCMD} push sarthakwaghpatil/medicure:${tagName}"    
         }
     }
