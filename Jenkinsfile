@@ -40,7 +40,7 @@ node{
     stage('pushing image to dockerhub'){
         echo "pushing the image to dockerhub"
         withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerhubpassword')]) {
-        sh "sudo ${dockerCMD} login
+        sh "sudo ${dockerCMD} login"
         sh "sudo ${dockerCMD} push sarthakwaghpatil/medicure:${tagName}"    
         }
     }
