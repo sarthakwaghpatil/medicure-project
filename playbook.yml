@@ -19,6 +19,6 @@
   - name : stop existing conatainers
     shell: docker stop $(docker ps -aq)
   - name: delete all containers
-    shell: docker rm $(docker ps _aq)
+    shell: docker rm $(docker ps -aq)
   - name: to deploy docker image 
     command: docker run -itd -p 8081:8081 sarthakwaghpatil/medicure:1.0
