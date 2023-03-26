@@ -14,16 +14,7 @@ node{
 
     }
     stage('code checkout'){
-        try{
-            git 'https://github.com/sarthakwaghpatil/medicure-project.git'
-        }
-        catch (Exception e){
-            echo "exception occured in git code checkout"
-            currentBuild.result ="FAILURE"
-            emailext body: '''dear all,
-            the jenkins job has been failed . request you to please have a look at it immediately by clicking on below link
-            ${BUILD_URL}''', recipientProviders: [buildUser()], subject: 'jenkins job ${JOB_NAME} ${JOB_NUMBER} is failed', to: 'sarthakwaghpatil@gmail.com'
-        }
+        git 'https://github.com/sarthakwaghpatil/medicure-project.git'
     }
     stage('compile and package'){
         echo "cleaning compiling testing and packaging"
