@@ -1,6 +1,6 @@
 ---
 - name: to configure docker on slave node
-  hosts: all
+  hosts: testserver
   become: true
   connection: ssh
   tasks:
