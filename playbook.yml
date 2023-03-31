@@ -16,10 +16,6 @@
     command: sudo systemctl start docker
     become: yes
     become_user: root
-  - name : stop existing conatainers
-    shell: docker stop $(docker ps -a -q)
-  - name : delete all containers
-    shell: docker rm $(docker ps -a -q)
   - name: to deploy docker image
     command: docker run -itd -p 8081:8081 sarthakwaghpatil/medicure:1.0
 
