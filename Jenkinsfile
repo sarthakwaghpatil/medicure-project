@@ -22,7 +22,7 @@ node{
         sh "${mavenCMD} clean package"
     }
     stage('publish html reports'){
-        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'sarthakwaghpatil@gmail.com', reportFiles: '/var/lib/jenkins/workspace/medicure/target/surefire-reports', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/medicure-project/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
     }
     stage('build an image'){
         echo "containerizing the application"
@@ -31,11 +31,8 @@ node{
     stage('pushing image to dockerhub'){
         echo "pushing the image to dockerhub"
         withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerhubpassword')]) {
-        sh "${dockerCMD} login"
-        sh "${dockerCMD} push sarthakwaghpatil/medicure:${tagName}"    
+        sh "${dockerCMD} login -u sarthakwaghpatil -p ${dockerhubpassword}"
+        sh "${dockerCMD} push sarthakwaghpatil/medicure:${tagName}"
         }
-    }
-    stage('configure and deploy to test server'){
-        ansiblePlaybook become: true, credentialsId: 'ansible-key', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'playbook.yml'
     }
 }
